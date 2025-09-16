@@ -1,4 +1,8 @@
-# Furry Friends — Module 2 Demonstration
+# Furry-Friends-Application
+
+Software Engineering CSC 605
+
+— Furry Friends — Module 2 Demonstration —
 
 This repo contains a JavaFX application (Pet Health Management System) and a CLI demo runner to showcase the Process View (runtime behavior) from Module 2.
 
