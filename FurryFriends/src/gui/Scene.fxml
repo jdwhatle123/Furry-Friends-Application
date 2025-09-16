@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Scene.fxml - Main GUI layout for Furry Friends application
+
+This FXML defines a StackPane as the root, with a background image and several overlaying panes for different user flows:
+- Login Pane: Default visible, for user login and navigation to registration/forgot password.
+- Register Pane: For new user registration, with step-by-step fields.
+- Forgot Password Pane: For password reset via username/email.
+- User Menu Pane: Shown after successful login, displays user info and logout option.
+Visibility of panes is controlled by the controller to switch between flows.
+-->
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<StackPane fx:id="rootPane" prefHeight="600.0" prefWidth="335.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GUI_SceneController">
+   <children>
+      <!-- Background image for the app -->
+      <ImageView fitHeight="600.0" fitWidth="335.0">
+         <image>
+            <Image url="@images/Cover1.png" />
+         </image>
+      </ImageView>
+      <!-- Login Pane: Shown by default, allows user to login or navigate to register/forgot password -->
+      <VBox fx:id="loginPane" spacing="12.0" alignment="TOP_CENTER" maxWidth="295.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-padding: 24 24 24 24;">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <!-- Login form fields and navigation buttons -->
+            <Label text="Welcome to Furry Friends!" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-background-color: transparent;" />
+            <TextField fx:id="usernameField" promptText="Username" maxWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;"/>
+            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;"/>
+            <Button text="Login" fx:id="loginButton" onAction="#handleLogin" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Button text="Register" fx:id="registerButton" onAction="#showRegisterPane" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Button text="Forgot Password or UserID" fx:id="forgotButton" onAction="#showForgotPane" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Button text="Exit" fx:id="exitButton" onAction="#handleExit" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Label fx:id="messageLabel" textFill="red" wrapText="true" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+         </children>
+      </VBox>
+      <!-- Register Pane: For new user registration, hidden by default -->
+      <VBox fx:id="registerPane" visible="false" managed="false" alignment="CENTER" spacing="12.0" maxWidth="295.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-padding: 24 24 24 24;">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <Label text="Register New Account" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-background-color: transparent;" />
+            <!-- Account type selection -->
+            <ComboBox fx:id="regRoleBox" promptText="Select Account Type">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Owner" />
+                        <String fx:value="Vet Hospital" />
+                        <String fx:value="Shelter" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <!-- Step 1 fields: Basic info -->
+            <VBox fx:id="userStep1Box" spacing="8.0">
+                <TextField fx:id="regUsernameField" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+                <PasswordField fx:id="regPasswordField" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+                <TextField fx:id="regEmailField" promptText="Email" />
+                <TextField fx:id="regFirstNameField" promptText="First Name" />
+                <TextField fx:id="regLastNameField" promptText="Last Name" />
+                <Button text="Next" onAction="#showUserStep2" />
+            </VBox>
+            <!-- Step 2 fields: Address and phone, hidden by default -->
+            <VBox fx:id="userStep2Box" spacing="8.0" visible="false" managed="false">
+                <TextField fx:id="regStreetField" promptText="Street" />
+                <TextField fx:id="regCityField" promptText="City" />
+                <TextField fx:id="regStateField" promptText="State" />
+                <TextField fx:id="regZipField" promptText="Zip" />
+                <TextField fx:id="regPhoneField" promptText="Phone Number" />
+                <Button text="Register" onAction="#submitRegister" />
+            </VBox>
+            <Button text="Back to Login" onAction="#showLoginPane" />
+            <Label fx:id="regMessageLabel" textFill="red" />
+         </children>
+      </VBox>
+      <!-- Forgot Password Pane: For password reset, hidden by default -->
+      <VBox fx:id="forgotPane" visible="false" managed="false" alignment="CENTER" spacing="12.0" style="-fx-background-color: transparent; -fx-padding: 40 20 20 20;" maxWidth="295.0">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <Label text="Forgot Password" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <TextField fx:id="forgotUsernameField" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+            <TextField fx:id="forgotEmailField" promptText="Email" />
+            <PasswordField fx:id="forgotNewPasswordField" promptText="New Password" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+            <Button text="Reset Password" onAction="#submitForgotPassword" />
+            <Button text="Back to Login" onAction="#showLoginPane" />
+            <Label fx:id="forgotMessageLabel" textFill="red" />
+         </children>
+      </VBox>
+      <!-- User Menu Pane: Shown after login, displays user info and logout -->
+      <VBox fx:id="userMenuPane" visible="false" managed="false" alignment="TOP_CENTER" maxWidth="295.0" spacing="20.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-padding: 24 24 24 24;">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <Label fx:id="welcomeLabel" text="Welcome!" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-background-color: transparent;" />
+            <Label fx:id="userInfoLabel" text="User info will appear here." style="-fx-background-color: transparent;" />
+            <Button text="Logout" onAction="#handleLogout" style="-fx-background-color: transparent;" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>

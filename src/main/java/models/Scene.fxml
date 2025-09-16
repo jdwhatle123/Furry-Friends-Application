@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<StackPane fx:id="rootPane" prefHeight="600.0" prefWidth="335.0" style="-fx-background-color: transparent;" xmlns="http://javafx.com/javafx/21.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="models.GUI_SceneController">
+   <children>
+      <ImageView fitHeight="600.0" fitWidth="335.0">
+         <image>
+            <Image url="@/gui/images/Cover1.png" />
+         </image>
+      </ImageView>
+      <VBox fx:id="loginPane" spacing="12.0" alignment="TOP_CENTER" maxWidth="295.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-padding: 24 24 24 24;">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <Label text="Welcome to Furry Friends!" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-background-color: transparent;" />
+            <TextField fx:id="usernameField" promptText="Username" maxWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;"/>
+            <PasswordField fx:id="passwordField" promptText="Password" maxWidth="250.0" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;"/>
+            <Button text="Login" fx:id="loginButton" onAction="#handleLogin" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Button text="Register" fx:id="registerButton" onAction="#showRegisterPane" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Button text="Forgot Password or UserID" fx:id="forgotButton" onAction="#showForgotPane" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Button text="Exit" fx:id="exitButton" onAction="#handleExit" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+            <Label fx:id="messageLabel" textFill="red" wrapText="true" maxWidth="250.0" style="-fx-background-color: transparent;"/>
+         </children>
+      </VBox>
+      <VBox fx:id="registerPane" visible="false" managed="false" alignment="CENTER" spacing="12.0" maxWidth="295.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-padding: 24 24 24 24;">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <Label text="Register New Account" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-background-color: transparent;" />
+            <ComboBox fx:id="regRoleBox" promptText="Select Account Type">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Owner" />
+                        <String fx:value="Vet Hospital" />
+                        <String fx:value="Shelter" />
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <VBox fx:id="userStep1Box" spacing="8.0">
+                <TextField fx:id="regUsernameField" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+                <PasswordField fx:id="regPasswordField" promptText="Password" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+                <TextField fx:id="regEmailField" promptText="Email" />
+                <TextField fx:id="regFirstNameField" promptText="First Name" />
+                <TextField fx:id="regLastNameField" promptText="Last Name" />
+                <Button text="Next" onAction="#showUserStep2" />
+            </VBox>
+            <VBox fx:id="userStep2Box" spacing="8.0" visible="false" managed="false">
+                <TextField fx:id="regStreetField" promptText="Street" />
+                <TextField fx:id="regCityField" promptText="City" />
+                <TextField fx:id="regStateField" promptText="State" />
+                <TextField fx:id="regZipField" promptText="Zip" />
+                <TextField fx:id="regPhoneField" promptText="Phone Number" />
+                <Button text="Register" onAction="#submitRegister" />
+            </VBox>
+            <Button text="Back to Login" onAction="#showLoginPane" />
+            <Label fx:id="regMessageLabel" textFill="red" />
+         </children>
+      </VBox>
+      <VBox fx:id="forgotPane" visible="false" managed="false" alignment="CENTER" spacing="12.0" style="-fx-background-color: transparent; -fx-padding: 40 20 20 20;" maxWidth="295.0">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <Label text="Forgot Password" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+            <TextField fx:id="forgotUsernameField" promptText="Username" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+            <TextField fx:id="forgotEmailField" promptText="Email" />
+            <PasswordField fx:id="forgotNewPasswordField" promptText="New Password" style="-fx-background-color: transparent; -fx-border-color: black; -fx-border-width: 1; -fx-prompt-text-fill: #222;" />
+            <Button text="Reset Password" onAction="#submitForgotPassword" />
+            <Button text="Back to Login" onAction="#showLoginPane" />
+            <Label fx:id="forgotMessageLabel" textFill="red" />
+         </children>
+      </VBox>
+   <VBox fx:id="userMenuPane" visible="false" managed="false" alignment="TOP_CENTER" maxWidth="295.0" spacing="20.0" style="-fx-background-color: transparent; -fx-background-radius: 10; -fx-padding: 24 24 24 24;">
+         <StackPane.margin>
+            <Insets top="220" />
+         </StackPane.margin>
+         <children>
+            <Label fx:id="welcomeLabel" text="Welcome!" style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-background-color: transparent;" />
+         <Label fx:id="userInfoLabel" text="User info will appear here." style="-fx-background-color: transparent;" />
+         <HBox fx:id="vetShelterActions" spacing="8.0" alignment="CENTER" visible="false" managed="false">
+            <Button text="Add Sample Slots" onAction="#handleAddSampleSlots" />
+            <Button text="List My Slots" onAction="#handleListMySlots" />
+         </HBox>
+         <HBox fx:id="ownerActions" spacing="8.0" alignment="CENTER" visible="false" managed="false">
+            <Button text="Book Appointment" onAction="#handleBookAppointment" />
+            <Button text="My Appointments" onAction="#handleMyAppointments" />
+         </HBox>
+         <TitledPane fx:id="adminPanel" text="Facility Admin" expanded="false" visible="false" managed="false" maxWidth="280.0">
+            <content>
+               <VBox spacing="8.0">
+                  <Label text="Facility Name" />
+                  <TextField fx:id="adminFacilityName" />
+                  <Label text="Phone" />
+                  <TextField fx:id="adminPhone" />
+                  <Label text="Street" />
+                  <TextField fx:id="adminStreet" />
+                  <Label text="City, State ZIP" />
+                  <HBox spacing="6.0">
+                     <TextField fx:id="adminCity" promptText="City" />
+                     <TextField fx:id="adminState" promptText="State" maxWidth="60" />
+                     <TextField fx:id="adminZip" promptText="Zip" maxWidth="80" />
+                  </HBox>
+                  <Label text="Email" />
+                  <TextField fx:id="adminEmail" />
+                  <Label text="Business Hours" />
+                  <TextField fx:id="adminHours" />
+                  <Label text="Website" />
+                  <TextField fx:id="adminWebsite" />
+                  <HBox spacing="8.0">
+                     <Button text="Save Facility" onAction="#handleAdminSaveFacility" />
+                     <Region />
+                  </HBox>
+                  <Separator />
+                  <Label text="Add Custom Slot (YYYY-MM-DDTHH:MM)" />
+                  <HBox spacing="6.0">
+                     <TextField fx:id="adminCustomSlot" promptText="2025-09-16T09:30" />
+                     <Button text="Add Slot" onAction="#handleAdminAddCustomSlot" />
+                  </HBox>
+               </VBox>
+            </content>
+         </TitledPane>
+            <Button text="Logout" onAction="#handleLogout" style="-fx-background-color: transparent;" />
+         </children>
+      </VBox>
+   </children>
+</StackPane>
