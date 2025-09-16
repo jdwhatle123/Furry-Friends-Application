@@ -1,0 +1,16 @@
+%% Figure 5b – Shelter Booking domain (focused)
+classDiagram
+    direction TB
+
+    class User { +String loginId +String role }
+    class Pet { +int id +String name }
+    class Facility { +int id +String name +String type }
+    class Room { +int id +int facilityId +String name }
+    class RoomAvailability { +int id +int roomId +String date +int available }
+    class RoomBooking { +int id +int roomId +String date +String bookedBy +int petId }
+
+    Facility "1" --> "0..*" Room : has >
+    Room "1" --> "0..*" RoomAvailability : dates >
+    Room "1" --> "0..*" RoomBooking : bookings >
+    User "1" --> "0..*" RoomBooking : books >
+    Pet "1" --> "0..*" RoomBooking : for >

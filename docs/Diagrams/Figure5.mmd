@@ -1,0 +1,133 @@
+%% Mermaid class diagram for Furry Friends (Figure 5)
+classDiagram
+    direction TB
+
+    class User {
+      +String loginId
+      +String role
+      +String firstName
+      +String lastName
+      +String email
+      +String phoneNumber
+      +String street
+      +String city
+      +String state
+      +String zip
+    }
+
+    class Pet {
+      +int id
+      +String name
+      +String breed
+      +int age
+      +String diet
+      +String medicalHistory
+      +String ownerUsername
+    }
+
+    class Facility {
+      +int id
+      +String name
+      +String type
+      +String phoneNumber
+      +String street
+      +String city
+      +String state
+      +String zip
+      +String email
+      +String businessHours
+      +String websiteUrl
+      +String adminAgent
+    }
+
+    class FacilitySlot {
+      +int id
+      +int facilityId
+      +String slot
+      +int booked
+    }
+
+    class Appointment {
+      +int id
+      +int petId
+      +int facilityId
+      +int slotId
+      +String ownerUsername
+      +String description
+    }
+
+    class Room {
+      +int id
+      +int facilityId
+      +String name
+      +String size
+    }
+
+    class RoomAvailability {
+      +int id
+      +int roomId
+      +String date
+      +int available
+    }
+
+    class RoomBooking {
+      +int id
+      +int roomId
+      +String date
+      +String bookedBy
+      +int petId
+    }
+
+    class JournalEntry {
+      +int id
+      +int petId
+      +String date
+      +String title
+      +String note
+      +String ownerUsername
+      +String visibility
+      +String createdAt
+    }
+
+    class Medication {
+      +int id
+      +int petId
+      +String name
+      +String dosage
+      +String frequency
+    }
+
+    class NotificationService {
+      +void scheduleReminder(loginId, when, zoneId, message, type)
+      +void addListener(callback)
+      +void cancelAllForUser(loginId)
+      +void close()
+    }
+
+    class Controller {
+      +Connection getConnection()
+      +String login(username, password)
+      +String register(role, loginId, firstName, lastName, ...)
+      +User getUserByLoginId(loginId)
+      +String forgotPassword(username, email, newPassword)
+      +String addAppointment(petId, facilityId, slotId, description, ownerUsername)
+    }
+
+    User "1" --> "0..*" Pet : owns >
+    User "1" --> "0..1" Facility : adminAgent >
+    Facility "1" --> "0..*" FacilitySlot : has >
+    Facility "1" --> "0..*" Room : has >
+    Pet "1" --> "0..*" JournalEntry : logs >
+    Pet "1" --> "0..*" Medication : prescribed >
+    Appointment "*" --> "1" Pet : for >
+    Appointment "*" --> "1" Facility : at >
+    Appointment "*" --> "1" FacilitySlot : uses >
+    Room "1" --> "0..*" RoomAvailability : dates >
+    Room "1" --> "0..*" RoomBooking : bookings >
+    User "1" --> "0..*" RoomBooking : books >
+    NotificationService ..> User : notifies
+    Controller ..> User : manages
+    Controller ..> Pet : manages
+    Controller ..> Facility : manages
+    Controller ..> Appointment : manages
+    Controller ..> RoomBooking : manages

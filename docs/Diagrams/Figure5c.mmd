@@ -1,0 +1,10 @@
+%% Figure 5c – Pet Records (focused)
+classDiagram
+    direction TB
+
+    class Pet { +int id +String name +String breed +int age }
+    class Medication { +int id +int petId +String name +String dosage +String frequency }
+    class JournalEntry { +int id +int petId +String date +String title +String note +String visibility }
+
+    Pet "1" --> "0..*" Medication : prescribed >
+    Pet "1" --> "0..*" JournalEntry : logs >

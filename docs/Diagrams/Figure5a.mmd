@@ -1,0 +1,14 @@
+%% Figure 5a – Vet Appointment domain (focused)
+classDiagram
+    direction TB
+
+    class User { +String loginId +String role }
+    class Pet { +int id +String name }
+    class Facility { +int id +String name +String type }
+    class FacilitySlot { +int id +int facilityId +String slot +int booked }
+    class Appointment { +int id +int petId +int facilityId +int slotId +String ownerUsername +String description }
+
+    User "1" --> "0..*" Pet : owns >
+    Appointment "*" --> "1" Pet : for >
+    Appointment "*" --> "1" Facility : at >
+    Appointment "*" --> "1" FacilitySlot : uses >
